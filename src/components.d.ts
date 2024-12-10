@@ -22,6 +22,18 @@ export namespace Components {
     }
     interface UiButton {
     }
+    interface UiSidenav {
+        "open": () => Promise<void>;
+        "opened": boolean;
+        "title": string;
+    }
+    interface UiTooltip {
+        "opened": boolean;
+    }
+}
+export interface UiSidenavCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiSidenavElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -36,9 +48,34 @@ declare global {
         prototype: HTMLUiButtonElement;
         new (): HTMLUiButtonElement;
     };
+    interface HTMLUiSidenavElementEventMap {
+        "sidenavOpened": string;
+    }
+    interface HTMLUiSidenavElement extends Components.UiSidenav, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUiSidenavElementEventMap>(type: K, listener: (this: HTMLUiSidenavElement, ev: UiSidenavCustomEvent<HTMLUiSidenavElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUiSidenavElementEventMap>(type: K, listener: (this: HTMLUiSidenavElement, ev: UiSidenavCustomEvent<HTMLUiSidenavElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLUiSidenavElement: {
+        prototype: HTMLUiSidenavElement;
+        new (): HTMLUiSidenavElement;
+    };
+    interface HTMLUiTooltipElement extends Components.UiTooltip, HTMLStencilElement {
+    }
+    var HTMLUiTooltipElement: {
+        prototype: HTMLUiTooltipElement;
+        new (): HTMLUiTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "ui-button": HTMLUiButtonElement;
+        "ui-sidenav": HTMLUiSidenavElement;
+        "ui-tooltip": HTMLUiTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -58,9 +95,19 @@ declare namespace LocalJSX {
     }
     interface UiButton {
     }
+    interface UiSidenav {
+        "onSidenavOpened"?: (event: UiSidenavCustomEvent<string>) => void;
+        "opened"?: boolean;
+        "title"?: string;
+    }
+    interface UiTooltip {
+        "opened"?: boolean;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
         "ui-button": UiButton;
+        "ui-sidenav": UiSidenav;
+        "ui-tooltip": UiTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -69,6 +116,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "ui-button": LocalJSX.UiButton & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
+            "ui-sidenav": LocalJSX.UiSidenav & JSXBase.HTMLAttributes<HTMLUiSidenavElement>;
+            "ui-tooltip": LocalJSX.UiTooltip & JSXBase.HTMLAttributes<HTMLUiTooltipElement>;
         }
     }
 }

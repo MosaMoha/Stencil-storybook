@@ -4,7 +4,8 @@ import { Component, h } from '@stencil/core'
 @Component({
   tag: 'ui-button',
   styleUrl: 'ui-button.css',
-  shadow: true,
+  // shadow: false,
+  scoped: false,
 
 })
 export class UiButton{

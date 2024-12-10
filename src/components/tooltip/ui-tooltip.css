@@ -1,0 +1,19 @@
+.tooltip{
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  min-width: 160px;
+  max-width: 200px;
+  position: absolute;
+  left:110%;
+  top:0;
+ display: none;
+}
+
+.tooltip-wrapper{
+  position: relative;
+  display: inline-block;
+}
+:host([opened]) .tooltip{
+  display: block;
+}

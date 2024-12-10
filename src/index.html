@@ -6,10 +6,56 @@
     <title>Stencil Component Starter</title>
 
     <script type="module" src="/build/ui-web-components.esm.js"></script>
-    <script nomodule      src="/build/ui-web-components.js"></script>
+    <script nomodule src="/build/ui-web-components.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      .side-nav ul {
+        list-style: none;
+      }
+
+      .side-nav li {
+        margin: 1rem 0;
+        list-style: none;
+      }
+
+      .side-nav a {
+        text-decoration: none;
+        color: black;
+      }
+
+      #drawer-btn {
+        position: absolute;
+        z-index: 999;
+      }
+    </style>
   </head>
   <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
-    <ui-button></ui-button>
+    <ui-tooltip>Content goes here...</ui-tooltip>
+    
+    <button id="drawer-btn">Open side nav</button>
+    <ui-sidenav title="sdddsqdqs">
+      <ul class="side-nav">
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+      </ul>
+    </ui-sidenav>
+
+    <script>
+      const drawerBtn = document.querySelector('#drawer-btn');
+      const sideNav = document.querySelector('ui-sidenav');
+
+      
+      drawerBtn.addEventListener('click', () => {
+        if (!sideNav.opened) {
+          // sideNav.setAttribute('open', true);
+          //sideNav.opened = true;
+          sideNav.open();
+        }
+      });
+    </script>
   </body>
 </html>
